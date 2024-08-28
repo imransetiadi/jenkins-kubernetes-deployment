@@ -34,8 +34,7 @@ pipeline {
       steps {
           withKubeConfig([credentialsId: "${KUBECONFIG_CREDENTIALS_ID}"]) {
               sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'
-              sh 'mv kubectl /usr/local/bin/'
-              sh 'chmod u+x /usr/local/bin/kubectl' 
+              sh 'chmod u+x kubectl' 
               sh 'kubectl apply -f deployment.yaml'
           }
       }
