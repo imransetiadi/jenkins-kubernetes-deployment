@@ -33,9 +33,8 @@ pipeline {
     stage('Deploying React.js container to Kubernetes') {
       steps {
           withKubeConfig([credentialsId: "${KUBECONFIG_CREDENTIALS_ID}"]) {
-              sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'
-              sh 'chmod u+x kubectl' 
-              sh 'kubectl apply -f deployment.yaml'
+              sh 'ssh -i "imboyy.pem" ubuntu@ec2-16-78-62-97.ap-southeast-3.compute.amazonaws.com"'
+              sh 'kubectl apply -f /home/ubuntu/jenkins-deploy/jenkins-kubernetes-deployment/deployment.yaml'
           }
       }
     }
