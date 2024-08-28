@@ -39,5 +39,14 @@ pipeline {
           }
       }
     }
+    stage('Deploy Service YAML') {
+      steps {
+          withKubeConfig([credentialsId: "${KUBECONFIG_CREDENTIALS_ID}"]) {
+              sh """
+              kubectl apply -f service.yaml
+              """
+          }
+      }
+    }
   }
 }
