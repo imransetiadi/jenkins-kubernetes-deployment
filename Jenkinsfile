@@ -2,6 +2,7 @@ pipeline {
   environment {
     dockerimagename = "imransetiadi22/react-app"
     dockerImage = ""
+    KUBECONFIG_CREDENTIALS_ID = 'kubeconfig'
   }
   agent any
   stages {
@@ -31,10 +32,11 @@ pipeline {
     }
     stage('Deploying React.js container to Kubernetes') {
       steps {
-        script {
-          kubernetesDeploy(configs: "deployment.yaml", 
-                                         "service.yaml")
-        }
+          withKubeConfig([credentialsId: "${KUBECONFIG_CREDENTIALS_ID}"]) {
+              sh """
+              kubectl apply -f deployment.yaml
+              """
+          }
       }
     }
   }
