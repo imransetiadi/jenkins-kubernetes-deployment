@@ -33,8 +33,8 @@ pipeline {
     stage('Deploying React.js container to Kubernetes') {
       steps {
           withKubeConfig([credentialsId: "${KUBECONFIG_CREDENTIALS_ID}"]) {
-              sh 'ssh -t -i "imboyy.pem" ubuntu@ec2-16-78-62-97.ap-southeast-3.compute.amazonaws.com'
-              sh 'kubectl apply -f /home/ubuntu/jenkins-deploy/jenkins-kubernetes-deployment/deployment.yaml'
+              sh 'ssh -tt -i imboyy.pem ubuntu@ec2-16-78-62-97.ap-southeast-3.compute.amazonaws.com'
+              #sh 'kubectl apply -f /home/ubuntu/jenkins-deploy/jenkins-kubernetes-deployment/deployment.yaml'
           }
       }
     }
