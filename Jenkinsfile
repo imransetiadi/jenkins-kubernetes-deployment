@@ -33,7 +33,9 @@ pipeline {
     stage('Deploying React.js container to Kubernetes') {
       steps {
           withKubeConfig([credentialsId: "${KUBECONFIG_CREDENTIALS_ID}"]) {
-              sh "ssh -i ./imboyy.pem ubuntu@ec2-16-78-62-97.ap-southeast-3.compute.amazonaws.com 'kubectl get nodes'"
+              sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"'
+              sh 'chmod +x ./kubectl'
+              sh 'sudo mv ./kubectl /usr/local/bin/kubectl'
           }
       }
     }
